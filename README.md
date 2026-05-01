@@ -51,19 +51,19 @@ https://licious-task.netlify.app/
 
 ### Dashboard View
 
-![Dashboard View]()
+![Dashboard View](./public/screenshots/Dashboard.png)
 
 ### Table View
 
-![Table View]()
+![Table View](./public/screenshots/Dashboard.png)
 
 ### Card View
 
-![Card View]()
+![Card View](./public/screenshots/Card%20view.png)
 
 ### Mobile Responsive View
 
-![Mobile View]()
+![Mobile View](./public/screenshots/Mobile%20Screen.png)
 
 ## Design decisions
 
