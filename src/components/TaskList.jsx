@@ -1,36 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TaskItem from "./TaskItem";
 import TaskTable from "./TaskTable";
 
-const TaskList = ({ tasks, toggleTaskStatus, deleteTask, setEditingTask }) => {
+const TaskList = ({
+  tasks,
+  undoTask,
+  toggleTaskStatus,
+  deleteTask,
+  setEditingTask,
+  hasDeletedTask,
+}) => {
   const [viewMode, setViewMode] = useState("list");
   return (
     <div className="rounded-2xl bg-white p-6 shadow-sm h-full overflow-y-auto ">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-xl font-semibold">Task list</h2>
+        <div className="flex gap-4 items-center">
+          {hasDeletedTask ? (
+            <button
+              onClick={() => undoTask()}
+              className="px-2 py-1 bg-primary-600 text-white rounded-md"
+            >
+              {" "}
+              Undo task
+            </button>
+          ) : null}
+          <div className="flex overflow-hidden rounded-xl border bg-primary-200">
+            <button
+              onClick={() => setViewMode("list")}
+              className={`px-2 py-1 text-lg font-medium transition ${
+                viewMode == "list"
+                  ? "bg-primary-600 text-white"
+                  : "bg-white text-gray-400"
+              }`}
+            >
+              List view
+            </button>
 
-        <div className="flex overflow-hidden rounded-xl border bg-primary-200">
-          <button
-            onClick={() => setViewMode("list")}
-            className={`px-2 py-1 text-lg font-medium transition ${
-              viewMode == "list"
-                ? "bg-primary-600 text-white"
-                : "bg-white text-gray-400"
-            }`}
-          >
-            List view
-          </button>
-
-          <button
-            onClick={() => setViewMode("card")}
-            className={`px-2 py-1 text-lg font-medium transition ${
-              viewMode == "card"
-                ? "bg-primary-600 text-white"
-                : "bg-white text-gray-400"
-            }`}
-          >
-            Card view
-          </button>
+            <button
+              onClick={() => setViewMode("card")}
+              className={`px-2 py-1 text-lg font-medium transition ${
+                viewMode == "card"
+                  ? "bg-primary-600 text-white"
+                  : "bg-white text-gray-400"
+              }`}
+            >
+              Card view
+            </button>
+          </div>
         </div>
       </div>
 

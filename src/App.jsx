@@ -51,9 +51,21 @@ const App = () => {
     );
     if (!confirmDelete) return;
 
+    const deletedTask = tasks.find((task) => task.id === id);
+    localStorage.setItem("deletedTask", JSON.stringify(deletedTask));
+
     setTasks((prev) => prev.filter((task) => task.id !== id));
   };
 
+  const undoTask = () => {
+    const deletedTask = JSON.parse(localStorage.getItem("deletedTask"));
+
+    if (!deletedTask) return;
+
+    setTasks((prev) => [deletedTask, ...prev]);
+
+    localStorage.removeItem("deletedTask");
+  };
   const filteredTasks = useMemo(() => {
     return tasks.filter((task) => {
       const matchesSearch =
@@ -80,6 +92,8 @@ const App = () => {
     });
   }, [tasks, search, statusFilter, priorityFilter]);
 
+  const hasDeletedTask = localStorage.getItem("deletedTask");
+
   return (
     <div className="h-auto lg:h-[calc(100vh)] bg-gray-100 p-4 flex flex-col">
       <Header />
@@ -105,8 +119,10 @@ const App = () => {
             <TaskList
               tasks={filteredTasks}
               toggleTaskStatus={toggleTaskStatus}
+              undoTask={undoTask}
               deleteTask={deleteTask}
               setEditingTask={setEditingTask}
+              hasDeletedTask={hasDeletedTask}
             />
           </div>
         </div>
